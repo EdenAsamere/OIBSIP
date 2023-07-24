@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="converter">
+            <h1 class="converter__title">Temperature Unit Converter</h1>
+            <form class="converter__form">
+                <div class="form-group">
+                    <label for="degree" class="converter__label">Degrees</label>
+                    <input id="degree" placeholder="30" type="number" class="converter__input" required>
+                </div>
+                <div class="form-group">
+                    <label for="typeinit" class="converter__label">Initial Type</label>
+                    <select id="typeinit" class="converter__select">
+                        <option value="Fahrenheit">Fahrenheit</option>
+                        <option value="Celsius">Celsius</option>
+                        <option value="Kelvin">Kelvin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="typeafter" class="converter__label">Final Type</label>
+                    <select id="typeafter" class="converter__select">
+                        <option value="Fahrenheit">Fahrenheit</option>
+                        <option value="Celsius">Celsius</option>
+                        <option value="Kelvin">Kelvin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="result" class="converter__label">Result</label>
+                    <input id="result" type="text"  class="converter__input">
+                </div>
+                
+            </form>
+            <div class="converter__button-container">
+                <button onclick="changeUnit()" class="converter__button">Convert</button>
+                <small id="warning" class="converter__warning"></small>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeUnit() {
+            const typeinit = document.getElementById("typeinit").value.trim();
+            const typeafter = document.getElementById("typeafter").value.trim();
+            const input = document.getElementById("degree").value.trim();
+            if(input === ""  ){
+                document.getElementById("warning").textContent = "please enter a value";  
+                return;
+            }
+            else if(typeinit === ""){
+                document.getElementById("warning").textContent = "fill initial type";  
+                
+            }
+            else if(typeafter === ""){
+                document.getElementById("warning").textContent = "fill final type";  
+
+            }
+            else{
+              document.getElementById("warning").textContent = "";
+            }
+            if (typeinit === "Celsius" && typeafter ==="Fahrenheit") {
+                const fahrenheit = parseFloat(input) * 1.8 + 32;
+                document.getElementById("result").value = fahrenheit.toFixed(2) + " \u00B0F";
+            }else if (typeinit === "Fahrenheit" && typeafter ==="Celsius") {
+                const celsius = (parseFloat(input) - 32) / 1.8;
+                document.getElementById("result").value = celsius.toFixed(2) +" \u00B0C"  ;
+            }
+            else if (typeinit === "Kelvin" && typeafter ==="Celsius") {
+                const celsius = (parseFloat(input))- 273.15;
+                document.getElementById("result").value = celsius.toFixed(2) +" \u00B0C" ;
+            }
+            else if (typeinit === "Celsius" && typeafter ==="Kelvin") {
+                const kelvin = (parseFloat(input))+273.15;
+                document.getElementById("result").value = kelvin.toFixed(2) +" K";
+            }
+            else if (typeinit === "Fahrenheit" && typeafter ==="Kelvin") {
+                const kelvin = ((parseFloat(input))-32)/1.8 +273.15;
+                document.getElementById("result").value = kelvin.toFixed(2)+" K";
+            }
+            else if (typeinit === "Kelvin" && typeafter ==="Fahrenheit") {
+                const fahrenheit = ((parseFloat(input)) -273.15) *1.8;
+                document.getElementById("result").value = fahrenheit.toFixed(2)+" \u00B0F" ;
+            }
+        }
+    </script>
+</body>
+</html>
